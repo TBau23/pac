@@ -1,37 +1,33 @@
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT
-#PACMAN
+import sys
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, FPS
 
-#MAP
-#PACMAN
-#GHOSTS
-#PELLETS
-#POWERPELLETS
-#SCORE
+# Maze
+# Pacman
+# Ghosts
 
 
 def main():
     pygame.init()
+
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Pacman")
-
     clock = pygame.time.Clock()
-    running = True
 
-    while running:
+    while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
                 pygame.quit()
+                sys.exit()
+        
 
+        # drawing
         screen.fill('black')
 
+        # update display
         pygame.display.flip()
-        clock.tick(60)
+        clock.tick(FPS)
+    
+main()
 
 
-
-if __name__ == "__main__":
-    main()
-                
-            
