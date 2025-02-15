@@ -1,4 +1,5 @@
 import pygame
+import math
 from constants import CELL_SIZE
 
 class Pacman:
@@ -16,9 +17,20 @@ class Pacman:
         center_x = self.x * CELL_SIZE + CELL_SIZE // 2
         center_y = self.y * CELL_SIZE + CELL_SIZE // 2
     
-        # Draw Pac-Man as a yellow circle
-        radius = CELL_SIZE // 2  # or slightly smaller like CELL_SIZE // 2 - 2
-        pygame.draw.circle(screen, 'yellow', (center_x, center_y), radius)
+        radius = CELL_SIZE // 2 - 2
+    
+        # Mouth angles (in degrees)
+        start_angle = 30  # angle from center to start of arc
+        end_angle = -30   # angle from center to end of arc
+
+        # Convert angles to radians for pygame
+        start_rad = math.radians(start_angle)
+        end_rad = math.radians(end_angle)
+
+        pygame.draw.arc(screen, 'yellow', 
+                        (center_x - radius, center_y - radius, 
+                        radius * 2, radius * 2),
+                        start_rad, end_rad, radius)
 
     
     def handle_keypress(self, event):
