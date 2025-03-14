@@ -10,6 +10,7 @@ class Level:
         self.dots = {}
         self.powerups = {}
         self.level = self.load_level(level_file)
+        self.power_pellet_eaten = False
 
     def load_level(self, level_file):
         level = []
@@ -57,5 +58,10 @@ class Level:
     def collect_powerup(self, x, y):
         if (x, y) in self.powerups:
             del self.powerups[(x, y)]
+            self.power_pellet_eaten = True
             return True
         return False
+        
+    def is_complete(self):
+        # Check if all dots and power pellets have been collected
+        return len(self.dots) == 0 and len(self.powerups) == 0

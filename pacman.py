@@ -18,6 +18,7 @@ class Pacman:
         self.mouth_angle = 45  # Angle for the mouth opening
         self.mouth_opening = True  # Whether mouth is opening or closing
         self.rotation = 0
+        self.ghost_score_multiplier = 1  # For consecutive ghost eating
 
     def handle_keypress(self, event):
         # Store the requested direction instead of immediately changing
@@ -107,8 +108,15 @@ class Pacman:
                     self.score += 10
                 if self.level.collect_powerup(self.grid_x, self.grid_y):
                     self.score += 50
+                    # Reset ghost score multiplier when a new power pellet is eaten
+                    self.ghost_score_multiplier = 1
 
-    
+    def eat_ghost(self):
+        # Score for eating a ghost doubles for each ghost eaten during one power pellet
+        ghost_points = 200 * self.ghost_score_multiplier
+        self.score += ghost_points
+        self.ghost_score_multiplier *= 2
+        return ghost_points
 
     def is_valid_move(self, next_grid_x, next_grid_y):
         # Check bounds
